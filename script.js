@@ -1,6 +1,6 @@
 // Tipos básicos
 // Clase principal
-class TeraSolutionsApp {
+class QvaCodersApp {
     constructor() {
         this.contactForm = document.getElementById('contactForm');
         this.hamburger = document.querySelector('.hamburger');
@@ -61,12 +61,12 @@ class TeraSolutionsApp {
         }
     }
     setupScrollEffects() {
-        // Efecto parallax para hero
+        // Efecto sutil para hero (sin parallax que solape)
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.opacity = Math.max(1 - scrolled / 600, 0.6);
             }
         });
     }
@@ -238,5 +238,5 @@ class TeraSolutionsApp {
 }
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
-    new TeraSolutionsApp();
+    new QvaCodersApp();
 });

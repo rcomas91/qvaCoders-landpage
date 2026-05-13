@@ -8,7 +8,7 @@ interface ContactForm {
 }
 
 // Clase principal
-class TeraSolutionsApp {
+class QvaCodersApp {
     private contactForm: HTMLFormElement | null;
     private hamburger: HTMLElement | null;
     private navMenu: HTMLElement | null;
@@ -84,12 +84,12 @@ class TeraSolutionsApp {
     }
 
     private setupScrollEffects(): void {
-        // Efecto parallax para hero
+        // Efecto sutil para hero (sin parallax que solape)
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero') as HTMLElement;
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.opacity = Math.max(1 - scrolled / 600, 0.6);
             }
         });
     }
@@ -250,5 +250,5 @@ class TeraSolutionsApp {
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
-    new TeraSolutionsApp();
+    new QvaCodersApp();
 }); 

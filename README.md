@@ -1,6 +1,6 @@
-# Tera Solutions - Landing Page
+# Qva Coders - Landing Page
 
-Una landing page moderna y minimalista para Tera Solutions, empresa de desarrollo de software a la medida.
+Una landing page moderna y minimalista para Qva Coders, empresa de desarrollo de software a la medida.
 
 ## 🚀 Características
 
@@ -22,7 +22,7 @@ Una landing page moderna y minimalista para Tera Solutions, empresa de desarroll
 ## 📁 Estructura del Proyecto
 
 ```
-tera-solutions/
+qva-coders/
 ├── index.html          # Página principal
 ├── styles.css          # Estilos CSS
 ├── script.ts           # Código TypeScript
@@ -72,7 +72,7 @@ tera-solutions/
 ## 📧 Contacto
 
 - **Email**: raydelcomas1991@gmail.com
-- **Teléfono**: +1 (555) 123-4567
+- **Teléfono**: +53 52811698
 - **Horario**: Lun - Vie: 9:00 AM - 6:00 PM
 
 ## 🎯 Funcionalidades Interactivas
@@ -124,7 +124,7 @@ Mensaje:
 {{message}}
 
 ---
-Este email fue enviado desde el formulario de contacto de Tera Solutions.
+Este email fue enviado desde el formulario de contacto de Qva Coders.
 ```
 
 ### 4. Configurar en script.js
@@ -266,4 +266,4 @@ Para soporte técnico o consultas:
 
 ---
 
-**Tera Solutions** - Transformando ideas en soluciones digitales innovadoras 🚀 
+**Qva Coders** - Transformando ideas en soluciones digitales innovadoras 🚀 
