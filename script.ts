@@ -24,6 +24,7 @@ class QvaCodersApp {
     private init(): void {
         this.setupEventListeners();
         this.setupScrollEffects();
+        this.setupScrollReveal();
     }
 
     private setupEventListeners(): void {
@@ -55,8 +56,8 @@ class QvaCodersApp {
 
     private handleSmoothScroll(e: Event): void {
         e.preventDefault();
-        const target = e.target as HTMLAnchorElement;
-        const targetId = target.getAttribute('href');
+        const link = e.currentTarget as HTMLAnchorElement;
+        const targetId = link.getAttribute('href');
         
         if (targetId && targetId !== '#') {
             const targetElement = document.querySelector(targetId);
@@ -91,6 +92,50 @@ class QvaCodersApp {
             if (hero && scrolled < window.innerHeight) {
                 hero.style.opacity = Math.max(1 - scrolled / 600, 0.6);
             }
+        });
+    }
+
+    private setupScrollReveal(): void {
+        interface RevealTarget {
+            selector: string;
+            delay: number | null;
+            stagger: boolean;
+        }
+
+        const targets: RevealTarget[] = [
+            { selector: '.hero-content', delay: 0, stagger: false },
+            { selector: '.hero-image', delay: 1, stagger: false },
+            { selector: '.service-card', delay: null, stagger: true },
+            { selector: '.tech-category', delay: null, stagger: true },
+            { selector: '.testimonial-card', delay: null, stagger: true },
+            { selector: '.contact-content > *', delay: null, stagger: true },
+            { selector: '.footer-content > *', delay: null, stagger: true },
+        ];
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        targets.forEach(({ selector, delay, stagger }) => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach((el, i) => {
+                el.classList.add('reveal');
+                if (stagger) {
+                    const d = Math.min(i, 5);
+                    el.classList.add(`reveal-delay-${d}`);
+                } else if (delay !== null) {
+                    el.classList.add(`reveal-delay-${delay}`);
+                }
+                observer.observe(el);
+            });
         });
     }
 

@@ -10,6 +10,7 @@ class QvaCodersApp {
     init() {
         this.setupEventListeners();
         this.setupScrollEffects();
+        this.setupScrollReveal();
     }
     setupEventListeners() {
         // Menú móvil
@@ -35,8 +36,8 @@ class QvaCodersApp {
     }
     handleSmoothScroll(e) {
         e.preventDefault();
-        const target = e.target;
-        const targetId = target.getAttribute('href');
+        const link = e.currentTarget;
+        const targetId = link.getAttribute('href');
         if (targetId && targetId !== '#') {
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
@@ -68,6 +69,43 @@ class QvaCodersApp {
             if (hero && scrolled < window.innerHeight) {
                 hero.style.opacity = Math.max(1 - scrolled / 600, 0.6);
             }
+        });
+    }
+    setupScrollReveal() {
+        const targets = [
+            { selector: '.hero-content', delay: 0 },
+            { selector: '.hero-image', delay: 1 },
+            { selector: '.service-card', delay: null, stagger: true },
+            { selector: '.tech-category', delay: null, stagger: true },
+            { selector: '.testimonial-card', delay: null, stagger: true },
+            { selector: '.contact-content > *', delay: null, stagger: true },
+            { selector: '.footer-content > *', delay: null, stagger: true },
+        ];
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        targets.forEach(({ selector, delay, stagger }) => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach((el, i) => {
+                el.classList.add('reveal');
+                if (stagger) {
+                    const d = Math.min(i, 5);
+                    el.classList.add(`reveal-delay-${d}`);
+                } else if (delay !== null) {
+                    el.classList.add(`reveal-delay-${delay}`);
+                }
+                observer.observe(el);
+            });
         });
     }
     async handleFormSubmit(e) {
