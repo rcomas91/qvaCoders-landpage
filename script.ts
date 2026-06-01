@@ -221,30 +221,34 @@ class QvaCodersApp {
     }
 
     private async sendEmail(data: ContactForm): Promise<void> {
-        // Reemplaza 'TU_FORM_ID_AQUI' con el ID real de tu Google Form
-        const formId = 'TU_FORM_ID_AQUI';
-        const formUrl = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
+        // Reemplazar con tu ID de formulario de Formspree: https://formspree.io
+        const formId = 'TU_ID_DE_FORMPREE';
 
-        // Reemplaza estos entry IDs con los reales de tu Google Form
-        // Para obtenerlos: inspecciona el HTML del form o usa la URL de pre-filled
-        const formData = new FormData();
-        formData.append('entry.123456789', data.name);  // Reemplaza con entry ID real para nombre
-        formData.append('entry.987654321', data.email); // Reemplaza con entry ID real para email
-        formData.append('entry.111111111', data.company); // Empresa
-        formData.append('entry.222222222', data.service); // Servicio
-        formData.append('entry.333333333', data.message); // Mensaje
+        console.log('Enviando mensaje a Formspree...', data);
 
-        try {
-            const response = await fetch(formUrl, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'  // Necesario para Google Forms
-            });
-            console.log('Formulario enviado a Google Forms');
-        } catch (error) {
-            console.error('Error enviando formulario:', error);
-            throw error;
+        const response = await fetch(`https://formspree.io/f/${formId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: data.name,
+                email: data.email,
+                company: data.company || 'No especificada',
+                service: data.service,
+                message: data.message
+            })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.ok) {
+            console.error('Error de Formspree:', result);
+            throw new Error(result.error || 'Error al enviar el mensaje');
         }
+
+        console.log('Mensaje enviado exitosamente:', result);
     }
 
     private showSuccess(message: string): void {

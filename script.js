@@ -1,4 +1,7 @@
-// Tipos básicos
+// Configuración de Formspree
+// Reemplazar con tu ID de formulario de Formspree: https://formspree.io
+const FORMPREE_FORM_ID = 'xaqkgazn';
+
 // Clase principal
 class QvaCodersApp {
     constructor() {
@@ -185,56 +188,32 @@ class QvaCodersApp {
         }
     }
     async sendEmail(data) {
-        // Verificar que EmailJS esté cargado
-        if (typeof emailjs === 'undefined') {
-            throw new Error('EmailJS no está cargado. Verifica tu conexión a internet.');
-        }
+        console.log('Enviando mensaje a Formspree...', data);
 
-        // Configuración de EmailJS
-        const serviceID = 'service_oje2bqx';
-        const templateID = 'template_c3mdljv';
-        const publicKey = 'jHNxtH2Vwq2nYItD3';
-
-        console.log('Iniciando envío de email con EmailJS...');
-        console.log('Service ID:', serviceID);
-        console.log('Template ID:', templateID);
-
-        try {
-            // Inicializar EmailJS
-            emailjs.init(publicKey);
-            console.log('EmailJS inicializado correctamente');
-
-            // Preparar los parámetros para el template
-            const templateParams = {
-                from_name: data.name,
-                from_email: data.email,
+        const response = await fetch(`https://formspree.io/f/${FORMPREE_FORM_ID}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: data.name,
+                email: data.email,
                 company: data.company || 'No especificada',
                 service: data.service,
-                message: data.message,
-                to_email: 'raydelcomas1991@gmail.com'
-            };
+                message: data.message
+            })
+        });
 
-            console.log('Parámetros del template:', templateParams);
+        const result = await response.json();
 
-            const response = await emailjs.send(serviceID, templateID, templateParams);
-            console.log('Email enviado exitosamente:', response);
-            return response;
-
-        } catch (error) {
-            console.error('Error detallado al enviar email:', error);
-
-            // Manejar diferentes tipos de errores
-            if (error.text) {
-                console.error('Error de EmailJS:', error.text);
-                throw new Error(`Error de EmailJS: ${error.text}`);
-            } else if (error.message) {
-                console.error('Error de mensaje:', error.message);
-                throw new Error(`Error: ${error.message}`);
-            } else {
-                console.error('Error desconocido:', error);
-                throw new Error('Error desconocido al enviar el email');
-            }
+        if (!response.ok || !result.ok) {
+            console.error('Error de Formspree:', result);
+            throw new Error(result.error || 'Error al enviar el mensaje');
         }
+
+        console.log('Mensaje enviado exitosamente:', result);
+        return result;
     }
     showSuccess(message) {
         this.showNotification(message, 'success');
