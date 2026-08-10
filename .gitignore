@@ -62,4 +62,8 @@ jspm_packages/
 
 # Temporary folders
 tmp/
-temp/ 
+temp/
+
+# Playwright MCP artifacts
+.playwright-mcp/
+*.png 

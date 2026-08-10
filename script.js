@@ -3,7 +3,7 @@
 const FORMPREE_FORM_ID = 'xaqkgazn';
 
 // Clase principal
-class QvaCodersApp {
+class GusanosCodeApp {
     constructor() {
         this.contactForm = document.getElementById('contactForm');
         this.hamburger = document.querySelector('.hamburger');
@@ -255,5 +255,5 @@ class QvaCodersApp {
 }
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
-    new QvaCodersApp();
+    new GusanosCodeApp();
 });

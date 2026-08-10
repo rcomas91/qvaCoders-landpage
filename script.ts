@@ -8,7 +8,7 @@ interface ContactForm {
 }
 
 // Clase principal
-class QvaCodersApp {
+class GusanosCodeApp {
     private contactForm: HTMLFormElement | null;
     private hamburger: HTMLElement | null;
     private navMenu: HTMLElement | null;
@@ -299,5 +299,5 @@ class QvaCodersApp {
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
-    new QvaCodersApp();
+    new GusanosCodeApp();
 }); 
