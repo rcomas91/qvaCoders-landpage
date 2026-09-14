@@ -1,6 +1,6 @@
-# gusanosCode - Landing Page
+# QvaCoders - Landing Page
 
-Una landing page moderna y minimalista para gusanosCode, empresa de desarrollo de software a la medida.
+Una landing page moderna y minimalista para QvaCoders, empresa de desarrollo de software a la medida.
 
 ## 🚀 Características
 
@@ -124,7 +124,7 @@ Mensaje:
 {{message}}
 
 ---
-Este email fue enviado desde el formulario de contacto de gusanosCode.
+Este email fue enviado desde el formulario de contacto de QvaCoders.
 ```
 
 ### 4. Configurar en script.js
@@ -266,4 +266,4 @@ Para soporte técnico o consultas:
 
 ---
 
-**gusanosCode** - Transformando ideas en soluciones digitales innovadoras 🚀 
+**QvaCoders** - Transformando ideas en soluciones digitales innovadoras 🚀 
